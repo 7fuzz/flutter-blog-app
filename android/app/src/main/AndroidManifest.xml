@@ -42,4 +42,7 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+
+    <!-- Agar bisa akses internet untuk android-->
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
