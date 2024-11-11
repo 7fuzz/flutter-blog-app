@@ -4,14 +4,14 @@ import 'package:uts_pm2/models/user.dart';
 class DashboardScreen extends StatelessWidget {
   final User user;
 
-  DashboardScreen({required this.user});
+  const DashboardScreen({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Dashboard')),
+      appBar: AppBar(title: const Text('Dashboard')),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

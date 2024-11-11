@@ -18,26 +18,29 @@ class _LoginScreenState extends State<LoginScreen> {
     final username = _usernameController.text;
     final password = _passwordController.text;
 
+    // Jika username atau password kosong, form akan memberitahu
     if (!_formKey.currentState!.validate()) return;
 
     final user = User.authenticate(username, password);
 
     // Jika username atau password salah akan menampilkan pesan error
-    if (user != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DashboardScreen(user: user),
-        ),
-      );
-    } else {
+    if (user == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Username atau password salah'),
           duration: Duration(seconds: 2),
         )
       );
+      return;
     }
+    
+    // Masuk ke halaman dashboard
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DashboardScreen(user: user),
+      ),
+    );
   }
 
   @override
