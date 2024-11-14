@@ -56,7 +56,7 @@ class User {
   }
   
   // Cari user sesuai usename
-  static User? getUser(String username) {
+  static User? getUser(String? username) {
     for (var user in users) {
       if (user.username == username) {
         return user;

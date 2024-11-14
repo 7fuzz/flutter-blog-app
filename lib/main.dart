@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uts_pm2/views/login.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:uts_pm2/views/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,42 +17,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
         scaffoldBackgroundColor: Colors.white,
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(
-            fontFamily: 'SourGummy',  // Pakau custom font
-            fontSize: 18,
-            fontWeight: FontWeight.normal,
-          ),
-          bodyMedium: TextStyle(
-            fontFamily: 'SourGummy',
-            fontSize: 17,
-            fontWeight: FontWeight.normal,
-          ),
-          bodySmall: TextStyle(
-            fontFamily: 'SourGummy',
-            fontSize: 16,
-            fontWeight: FontWeight.normal,
-          ),
-          headlineLarge: TextStyle(
-            fontFamily: 'SourGummy',
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
-          headlineMedium: TextStyle(
-            fontFamily: 'SourGummy',
-            fontSize: 20,
-            fontStyle: FontStyle.italic,
-          ),
-          headlineSmall: TextStyle(
-            fontFamily: 'SourGummy',
-            fontSize: 18,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
+        textTheme: GoogleFonts.averiaSansLibreTextTheme(),
         // ubah default style appbar
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromARGB(142, 119, 221, 119),
-          titleTextStyle: TextStyle(color: Colors.black, fontSize: 24, fontFamily: 'SourGummy'),
+        appBarTheme: AppBarTheme(
+          backgroundColor: const Color.fromARGB(142, 119, 221, 119),
+          titleTextStyle: GoogleFonts.averiaSansLibre(
+            fontSize: 24,
+            color: Colors.white
+          ),
           centerTitle: true // text ditengah
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -61,7 +34,7 @@ class MyApp extends StatelessWidget {
           unselectedLabelStyle: TextStyle(color: Colors.black54),
         )
         ),
-      home: const LoginScreen(),
+      home: const SplashScreen(), // Splashscreen yang pertama dibuka
     );
   }
 }

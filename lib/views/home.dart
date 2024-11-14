@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uts_pm2/views/login.dart';
 import '../models/user.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final User user;
 
   const HomeScreen({super.key, required this.user});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,13 +20,12 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Home'),
         automaticallyImplyLeading: false
       ),
-      body: 
-      Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Menampilkan informasi user yang login
           Text(
-            'Selamat Datang, ${user.name ?? user.username}!',
+            'Selamat Datang, ${widget.user.name ?? widget.user.username}!',
             style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
@@ -53,6 +59,25 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {},
               ),
             ],
+          ),
+          const SizedBox(height: 30,),
+          Align(
+            alignment: Alignment.center,
+            // tombol logout
+            child: ElevatedButton(
+              onPressed: () async {
+                // menghapus data username yang sedang login
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.remove('username');
+  
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+              child: const Text('Logout'),
+            ),
           ),
         ],
       ),

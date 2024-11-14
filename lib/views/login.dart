@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uts_pm2/models/user.dart';
 import 'package:uts_pm2/views/dashboard.dart';
+import 'package:uts_pm2/views/register.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void _login() {
+  Future<void> _login() async {
     final username = _usernameController.text;
     final password = _passwordController.text;
 
@@ -34,8 +36,11 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
     
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('username', user.username);
+
     // Masuk ke halaman dashboard
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => DashboardScreen(user: user),
@@ -90,7 +95,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
                     onPressed: () {
-                      return;
+                      Navigator.push(
+                        context,
+                         MaterialPageRoute(
+                        builder: (context) => const RegisterScreen(),
+                        )
+                      );
                     },
                     child: const Text('Daftar'),
                   ),
