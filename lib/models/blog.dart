@@ -1,6 +1,5 @@
 import 'dart:math';
-
-import 'package:uts_pm2/models/user.dart';
+import '../models/user.dart';
 
 class Blog {
   // Semua variable bisa null, kecuali id
