@@ -12,10 +12,10 @@ class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key, required this.user});
 
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  DashboardScreenState createState() => DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
 
   // Menggunakan late inisialisasi, biar gk error

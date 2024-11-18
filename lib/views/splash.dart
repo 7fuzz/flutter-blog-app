@@ -8,10 +8,10 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
@@ -23,18 +23,20 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? username = prefs.getString('username');
 
-    if (!mounted) return;
-    
-    if (username == null) {
-      // Jika tidak ada user login, masuk ke halaman login
+    // Jika tidak ada user login atau user yang login terhapus, masuk ke halaman login
+    if (username == null || User.getUser(username) == null) {
+      await prefs.remove('username'); // Hapus sesi jika user terhapus
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
       return;
     }
-    // Jika ada user yang login, masuk ke dasboard
+
+    // Jika ada user yang login, masuk ke dashboard
     if (User.getUser(username) case var user?) {
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => DashboardScreen(user: user)),

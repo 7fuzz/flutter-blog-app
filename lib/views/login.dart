@@ -8,10 +8,10 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -38,8 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
     
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('username', user.username);
-
+    
     // Masuk ke halaman dashboard
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
