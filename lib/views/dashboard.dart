@@ -28,7 +28,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       HomeScreen(user: widget.user),
       const FeedScreen(),
       const SearchScreen(),
-      const SettingScreen(),
+      SettingScreen(user: widget.user),
       ProfileScreen(user: widget.user),
     ];
   }
