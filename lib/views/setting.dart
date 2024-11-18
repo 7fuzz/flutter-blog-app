@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:uts_pm2/views/changePassword.dart';
+import 'package:uts_pm2/models/biography.dart';
+import 'package:uts_pm2/views/change_password.dart';
 
 import '../models/user.dart';
+import 'change_biography.dart';
 
 class SettingScreen extends StatefulWidget {
   final User user;
@@ -37,9 +39,9 @@ class _SettingScreenState extends State<SettingScreen> {
 
     // Update nama, email, dan nomor telepon
     setState(() {
-      widget.user.name = name;
-      widget.user.email = email;
-      widget.user.phone = phone;
+      widget.user.name = name.isEmpty ? null : name;
+      widget.user.email = email.isEmpty ? null : email;
+      widget.user.phone = phone.isEmpty ? null : phone;
     });
 
     // Snackbar informasi diupdate
@@ -71,7 +73,6 @@ class _SettingScreenState extends State<SettingScreen> {
               subtitle: TextFormField(
                 initialValue: name,
                 onChanged: (value) => name = value,
-                validator: (value) => value == null || value.isEmpty ? 'Nama tidak boleh kosong' : null,
                 decoration: const InputDecoration(hintText: 'Masukan nama Anda'),
               ),
             ),
@@ -81,7 +82,11 @@ class _SettingScreenState extends State<SettingScreen> {
               subtitle: TextFormField(
                 initialValue: email,
                 onChanged: (value) => email = value,
-                validator: (value) => value != null && value.contains('@') ? null : 'Masukan email yang valid',
+                validator: (value) {
+                  // Boleh kosong, tapi jika isi harus valid
+                  if (value == null || value.isEmpty) return null;
+                  return value.contains('@') ? null : 'Masukan email yang valid';
+                },
                 decoration: const InputDecoration(hintText: 'Masukan email Anda'),
               ),
             ),
@@ -91,7 +96,11 @@ class _SettingScreenState extends State<SettingScreen> {
               subtitle: TextFormField(
                 initialValue: phone,
                 onChanged: (value) => phone = value,
-                validator: (value) => value != null && value.length >= 9 ? null : 'Masukan nomor telepon yang valid',
+                validator: (value) {
+                  // Boleh kosong, tapi jika isi harus valid
+                  if (value == null || value.isEmpty) return null;
+                  return value.length >= 9 ? null : 'Masukan nomor yang valid';
+                },
                 decoration: const InputDecoration(hintText: 'Masukan nomor telepon Anda'),
                 keyboardType: TextInputType.phone,
               ),
@@ -109,6 +118,20 @@ class _SettingScreenState extends State<SettingScreen> {
                 );
               },
             ),
+            ListTile(
+            title: const Text('Update Biography'),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChangeBiographyScreen(
+                    biography: Biography.getBio(widget.user.username)!,
+                  ),
+                ),
+              );
+            },
+          ),
           ],
         ),
       ),

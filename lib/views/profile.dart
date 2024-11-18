@@ -10,25 +10,25 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 class _ProfileScreenState extends State<ProfileScreen> {  
-  Biography? biography;
+  late Biography biography;
   @override
   void initState() {
     super.initState();
     // Inisialiasi biografi
-    biography = Biography.getBio(widget.user.username);
+    biography = Biography.getBio(widget.user.username)!;
   }
 
   @override
   Widget build(BuildContext context) {
     // cek apakah biografi dan isinya null
-    Biography? bioData = biography;
-    String profilePic = bioData?.profilePicture ?? 'assets/profilepic/default.jpg';
+    Biography bioData = biography;
+    String profilePic = bioData.profilePicture ?? 'assets/profilepic/default.jpg';
     String name = widget.user.name ?? 'Tanpa nama';
     String email = widget.user.email ?? 'No email';
-    String bio = bioData?.bio ?? '';
-    String website = bioData?.website ?? 'No website';
-    String location = bioData?.location ?? 'Earth';
-    String aboutMe = bioData?.aboutMe ?? 'Empty~';
+    String bio = bioData.bio ?? '';
+    String website = bioData.website ?? 'No website';
+    String location = bioData.location ?? 'No Location';
+    String aboutMe = bioData.aboutMe ?? 'Empty~';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
